@@ -1,12 +1,10 @@
 import os
 from dotenv import load_dotenv
-from openai import OpenAI
+import openai
 
-# 🔑 Load .env file
 load_dotenv()
 
-# ✅ Create client with API key
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def explain_topic(subject, topic):
     prompt = f"""
@@ -20,8 +18,8 @@ Rules:
 - 150–200 words
 """
 
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
         messages=[
             {"role": "user", "content": prompt}
         ]
